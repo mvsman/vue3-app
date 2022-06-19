@@ -1,4 +1,13 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import Axios from "axios";
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.mount("#app");
+
+app.config.globalProperties.$http = Axios;
+const token = localStorage.getItem("token");
+if (token) {
+  app.config.globalProperties.$http.defaults.headers.common["Authorization"] =
+    token;
+}
